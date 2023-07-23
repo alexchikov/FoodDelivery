@@ -14,7 +14,6 @@ def generate_items(number: int, items: list) -> dict:
         id = random.randint(1,20)
         quantity = random.randint(1,10)
         order_items.append({"item_id": items[id-1]["item_id"],
-                            "item_name": items[id-1]["item_name"],
                             "quantity": quantity
                             })
         summa += round(items[id-1]["price"]*quantity,2)
@@ -33,7 +32,7 @@ def generate_order(current_id: id) -> dict:
             "time": datetime.now().strftime("%H%M%S"),
             "customer_name": customer_name,
             "customer_address": customer_address,
-            "order_items": customer_items[0],
+            "ordered_items": customer_items[0],
             "total_price": customer_items[1],
             "delivery_instructions": "Please ring doorbell when delivering."
 }

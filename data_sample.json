@@ -1,0 +1,24 @@
+{
+    "order_id": "12345",
+    "customer_name": "John Doe",
+    "customer_address": "123 Main St, Anytown, USA",
+    "order_items": [
+      {
+        "item_id": "1",
+        "item_name": "Hamburger",
+        "quantity": 2
+      },
+      {
+        "item_id": "2",
+        "item_name": "French Fries",
+        "quantity": 1
+      },
+      {
+        "item_id": "3",
+        "item_name": "Coke",
+        "quantity": 3
+      }
+    ],
+    "total_price": 25.50,
+    "delivery_instructions": "Please ring doorbell when delivering."
+  }

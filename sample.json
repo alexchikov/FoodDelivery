@@ -1,5 +1,6 @@
 {
     "order_id": "12345",
+    "datetime": "20.04.2010 10:23:43",
     "customer_name": "John Doe",
     "customer_address": "123 Main St, Anytown, USA",
     "order_items": [

@@ -29,6 +29,7 @@ def generate_order(current_id: id) -> dict:
     with open("items.json") as file:
         customer_items = generate_items(random.randint(1,10), json.load(file))
     return {"order_id": current_id,
+            "time": datetime.now().strftime("%d.%m.%Y %H%M%S"),
             "customer_name": customer_name,
             "customer_address": customer_address,
             "order_items": customer_items[0],

@@ -5,18 +5,18 @@ import samples
 import json
 from time import sleep
 
-logging.basicConfig(logging.INFO, stream=sys.stdout, format="%(level)s (%(datetime)s): %(message)s")
+logging.basicConfig(level=logging.INFO, stream=sys.stdout, format="%(level)s (%(datetime)s): %(message)s")
 
 def generate_items(number: int, items: list) -> dict:
     order_items, summa = list(), int()
     for item in range(number):
         id = random.randint(1,20)
         quantity = random.randint(1,10)
-        order_items.append({"item_id": items[id]["item_id"],
-                            "item_name": items[id]["item_name"],
+        order_items.append({"item_id": items[id-1]["item_id"],
+                            "item_name": items[id-1]["item_name"],
                             "quantity": quantity
                             })
-        summa += items[id]["price"]*quantity
+        summa += items[id-1]["price"]*quantity
     return (order_items, summa)
         
 def generate_order(current_id: id) -> dict:
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     while True:
         id += 1
         order = generate_order(id)
-        logging.info("")
-        with open(f"orders/order_{id}.json") as file:
+        logging.info(f"Successfully generated order {id}")
+        with open(f"orders/order_{id}.json", "w") as file:
             json.dump(order, file)
         sleep(random.randint(30, 1800))

@@ -3,8 +3,9 @@ import logging
 import sys
 import samples
 import json
+from time import sleep
 
-logging.basicConfig(logging.INFO, stream=sys.stdout)
+logging.basicConfig(logging.INFO, stream=sys.stdout, format="%(level)s (%(datetime)s): %(message)s")
 
 def generate_items(number: int, items: list) -> dict:
     order_items, summa = list(), int()
@@ -35,3 +36,12 @@ def generate_order(current_id: id) -> dict:
     "delivery_instructions": "Please ring doorbell when delivering."
 }
     
+if __name__ == "__main__":
+    id = int()
+    while True:
+        id += 1
+        order = generate_order(id)
+        logging.info("")
+        with open(f"orders/order_{id}.json") as file:
+            json.dump(order, file)
+        sleep(random.randint(30, 1800))

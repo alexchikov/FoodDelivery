@@ -1,0 +1,102 @@
+[
+  {
+    "item_id": "1",
+    "item_name": "Hamburger",
+    "price": 9.99
+  },
+  {
+    "item_id": "2",
+    "item_name": "Pizza",
+    "price": 12.99
+  },
+  {
+    "item_id": "3",
+    "item_name": "Salad",
+    "price": 7.99
+  },
+  {
+    "item_id": "4",
+    "item_name": "Pasta",
+    "price": 8.99
+  },
+  {
+    "item_id": "5",
+    "item_name": "Sushi",
+    "price": 14.99
+  },
+  {
+    "item_id": "6",
+    "item_name": "Steak",
+    "price": 19.99
+  },
+  {
+    "item_id": "7",
+    "item_name": "Chicken Wings",
+    "price": 10.99
+  },
+  {
+    "item_id": "8",
+    "item_name": "Burrito",
+    "price": 9.99
+  },
+  {
+    "item_id": "9",
+    "item_name": "Fish and Chips",
+    "price": 11.99
+  },
+  {
+    "item_id": "10",
+    "item_name": "Sushi Roll",
+    "price": 8.99
+  },
+  {
+    "item_id": "11",
+    "item_name": "Taco",
+    "price": 6.99
+  },
+  {
+    "item_id": "12",
+    "item_name": "Chicken Caesar Wrap",
+    "price": 8.99
+  },
+  {
+    "item_id": "13",
+    "item_name": "Pho",
+    "price": 10.99
+  },
+  {
+    "item_id": "14",
+    "item_name": "Pad Thai",
+    "price": 9.99
+  },
+  {
+    "item_id": "15",
+    "item_name": "Grilled Cheese Sandwich",
+    "price": 6.99
+  },
+  {
+    "item_id": "16",
+    "item_name": "Chicken Noodle Soup",
+    "price": 7.99
+  },
+  {
+    "item_id": "17",
+    "item_name": "BBQ Ribs",
+    "price": 16.99
+  },
+  {
+    "item_id": "18",
+    "item_name": "Margarita",
+    "price": 8.99
+  },
+  {
+    "item_id": "19",
+    "item_name": "Beer",
+    "price": 4.99
+  },
+  {
+    "item_id": "20",
+    "item_name": "Wine",
+    "price": 12.99
+  }
+]

@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, Table, Column, ForeignKey
-from sqlalchemy.types import Integer, String, DateTime, SmallInteger
+from sqlalchemy.types import Integer, String, DateTime, SmallInteger, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import config
@@ -22,7 +22,7 @@ class Items(Base):
                   nullable=False)
 
     price = Column('price',
-                   Integer,
+                   Float,
                    nullable=False)
 
 

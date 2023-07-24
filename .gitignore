@@ -3,3 +3,4 @@ samples.py
 __pycache__
 orders
 .vscode
+items_sql.py

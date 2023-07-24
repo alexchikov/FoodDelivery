@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, Table, Column, ForeignKey
-from sqlalchemy.types import Integer, String, DateTime, Time
+from sqlalchemy.types import Integer, String, DateTime, SmallInteger
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import config
 
@@ -26,7 +27,6 @@ class Items(Base):
 
 
 class Orders(Base):
-
     __tablename__ = 'orders'
 
     id = Column('id',
@@ -47,14 +47,29 @@ class Orders(Base):
     city = Column('city', String(80))
     street = Column('street', String(80))
 
-    ordered_items = ...
-
     total_price = Column('total_price',
                          Integer,
                          nullable=False)
 
     delivery_instructions = Column('delivery_instructions',
                                    String(200))
+
+
+class Ordered_items(Base):
+    __tablename__ = 'ordered_items'
+
+    id = Column('id',
+                Integer,
+                primary_key=True,
+                nullable=False,
+                autoincrement=True,
+                unique=True)
+
+    order_id = Column('order_id', ForeignKey('orders.id'))
+    item_id = Column('item_id', ForeignKey('items.id'))
+    quantity = Column('quantity', SmallInteger)
+    items = relationship("Items")
+    orders = relationship("Orders")
 
 
 engine = create_engine(

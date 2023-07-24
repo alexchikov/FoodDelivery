@@ -24,8 +24,8 @@ def generate_items(number: int, items: list) -> dict:
 
 def generate_order(current_id: id) -> dict:
     customer_gender = random.choice(["male", "female"])
-    customer_name = random.choice(samples.name_samples[customer_gender])+" " +\
-        random.choice(samples.surname_samples[customer_gender])
+    customer_name = random.choice(samples.name_samples[customer_gender])
+    customer_surname = random.choice(samples.surname_samples[customer_gender]) if not None else ""
 
     customer_address = random.choice(samples.addresses)
     customer_address = f'{customer_address["city"]}, {customer_address["street"]}, {customer_address["house"]}'
@@ -35,7 +35,7 @@ def generate_order(current_id: id) -> dict:
     return {"order_id": current_id,
             "date": datetime.now().strftime("%d.%m.%Y"),
             "time": datetime.now().strftime("%H:%M:%S"),
-            "customer_name": customer_name,
+            "customer_name": f"{customer_name} {customer_surname}",
             "customer_address": customer_address,
             "ordered_items": customer_items[0],
             "total_price": customer_items[1],
@@ -52,4 +52,4 @@ if __name__ == "__main__":
         with open(f"orders/order_{id}_{datetime.now().strftime('%d-%m_%H:%M')}.json", "w") as file:
             json.dump(order, file, indent=4,
                       ensure_ascii=False, separators=[",", ":"])
-        sleep(random.randint(30, 1800))
+        sleep(random.randint(5, 60))

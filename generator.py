@@ -27,13 +27,14 @@ def generate_order(current_id: id) -> dict:
     customer_name = random.choice(samples.name_samples[customer_gender])+" " +\
         random.choice(samples.surname_samples[customer_gender])
 
-    customer_address = " ".join(
-        [val for val in random.choice(samples.addresses).values()])
+    customer_address = random.choice(samples.addresses)
+    customer_address = f'{customer_address["city"]}, {customer_address["street"]}, {customer_address["house"]}'
+
     with open("items.json") as file:
         customer_items = generate_items(random.randint(1, 10), json.load(file))
     return {"order_id": current_id,
             "date": datetime.now().strftime("%d.%m.%Y"),
-            "time": datetime.now().strftime("%H%M%S"),
+            "time": datetime.now().strftime("%H:%M:%S"),
             "customer_name": customer_name,
             "customer_address": customer_address,
             "ordered_items": customer_items[0],

@@ -30,17 +30,16 @@ def parse(path: str):
         for item in data["ordered_items"]:
             cursor.execute("INSERT INTO ordered_items (order_id, item_id, quantity)\
                 VALUES (%s, %s, %s);", (data["order_id"], item["item_id"], item["quantity"],))
-
+        connection.commit()
 
 def main():
     listdir = os.listdir("orders")
     while True:
-        for file in listdir:
+        for file in sorted(listdir):
             parse(file)
             logging.info(f"parsed file {file}")
         listdir = set(os.listdir("orders"))-set(listdir)
         logging.info(f"current listdir: {listdir}")
-        sleep(15)
-
+        sleep(90)
 
 main()

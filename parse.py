@@ -20,26 +20,26 @@ def parse(path: str):
         data = json.load(file)
         cursor.execute("INSERT INTO orders (id, datetime, customer_name, city, street, total_price, delivery_instructions)\
             VALUES (%s, %s, %s, %s, %s, %s, %s);", (data["order_id"],
-                                                    datetime.datetime.strptime((data["date"] + ' ' + data["time"]), 
+                                                datetime.datetime.strptime((data["date"] + ' ' + data["time"]), 
                                                                                '%d.%m.%Y %H:%M:%S'),
-                                                    data["customer_name"],
-                                                    data["customer_address"].split(', ')[0],
+                                                data["customer_name"],
+                                                data["customer_address"].split(', ')[0],
                                                     ', '.join(data["customer_address"].split(', ')[1:]),
-                                                    data["total_price"],
-                                                    data["delivery_instructions"],))
+                                                data["total_price"],
+                                                data["delivery_instructions"],))
         for item in data["ordered_items"]:
             cursor.execute("INSERT INTO ordered_items (order_id, item_id, quantity)\
                 VALUES (%s, %s, %s);", (data["order_id"], item["item_id"], item["quantity"],))
         connection.commit()
 
 def main():
-    listdir = os.listdir("orders")
+    listdir = list()
     while True:
-        for file in sorted(listdir):
+        for file in (set(os.listdir("orders/"))-set(listdir)):
             parse(file)
             logging.info(f"parsed file {file}")
-        listdir = set(os.listdir("orders"))-set(listdir)
-        logging.info(f"current listdir: {listdir}")
-        sleep(90)
+        listdir = os.listdir("orders/")
+        sleep(5)
 
-main()
+if __name__ == "__main__":
+    main()

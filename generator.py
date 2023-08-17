@@ -13,7 +13,13 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout,
 def generate_items(number: int, items: list) -> dict:
     order_items, summa = list(), int()
     for item in range(number):
-        id = random.randint(1, 20)
+        while True:
+            id = random.randint(1, 20)
+            for item in order_items:
+                if id == int(item["item_id"]):
+                    id = None
+            if id is not None:
+                break
         quantity = random.randint(1, 10)
         order_items.append({"item_id": items[id-1]["item_id"],
                             "quantity": quantity

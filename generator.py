@@ -13,7 +13,13 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout,
 def generate_items(number: int, items: list) -> dict:
     order_items, summa = list(), int()
     for item in range(number):
-        id = random.randint(1, 20)
+        while True:
+            id = random.randint(1, 20)
+            for item in order_items:
+                if id == int(item["item_id"]):
+                    id = None
+            if id is not None:
+                break
         quantity = random.randint(1, 10)
         order_items.append({"item_id": items[id-1]["item_id"],
                             "quantity": quantity
@@ -24,17 +30,18 @@ def generate_items(number: int, items: list) -> dict:
 
 def generate_order(current_id: id) -> dict:
     customer_gender = random.choice(["male", "female"])
-    customer_name = random.choice(samples.name_samples[customer_gender])+" " +\
-        random.choice(samples.surname_samples[customer_gender])
+    customer_name = random.choice(samples.name_samples[customer_gender])
+    customer_surname = random.choice(samples.surname_samples[customer_gender]) if not None else ""
 
-    customer_address = " ".join(
-        [val for val in random.choice(samples.addresses).values()])
+    customer_address = random.choice(samples.addresses)
+    customer_address = f'{customer_address["city"]}, {customer_address["street"]}, {customer_address["house"]}'
+
     with open("items.json") as file:
         customer_items = generate_items(random.randint(1, 10), json.load(file))
     return {"order_id": current_id,
             "date": datetime.now().strftime("%d.%m.%Y"),
-            "time": datetime.now().strftime("%H%M%S"),
-            "customer_name": customer_name,
+            "time": datetime.now().strftime("%H:%M:%S"),
+            "customer_name": f"{customer_name} {customer_surname}",
             "customer_address": customer_address,
             "ordered_items": customer_items[0],
             "total_price": customer_items[1],
@@ -51,4 +58,4 @@ if __name__ == "__main__":
         with open(f"orders/order_{id}_{datetime.now().strftime('%d-%m_%H:%M')}.json", "w") as file:
             json.dump(order, file, indent=4,
                       ensure_ascii=False, separators=[",", ":"])
-        sleep(random.randint(30, 1800))
+        sleep(random.randint(5, 60))

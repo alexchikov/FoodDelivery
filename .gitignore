@@ -4,3 +4,4 @@ __pycache__
 orders
 .vscode
 items_sql.py
+paths.py

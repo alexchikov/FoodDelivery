@@ -5,7 +5,6 @@ import samples
 import json
 from time import sleep
 from datetime import datetime
-from paths import PATH
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout,
                     format="%(levelname)s (%(asctime)s): %(message)s")
@@ -37,7 +36,7 @@ def generate_order(current_id: id) -> dict:
     customer_address = random.choice(samples.addresses)
     customer_address = f'{customer_address["city"]}, {customer_address["street"]}, {customer_address["house"]}'
 
-    with open(f"{PATH}items.json") as file:
+    with open(f"../items.json") as file:
         customer_items = generate_items(random.randint(1, 10), json.load(file))
     return {"order_id": current_id,
             "date": datetime.now().strftime("%d.%m.%Y"),
@@ -56,7 +55,7 @@ if __name__ == "__main__":
         id += 1
         order = generate_order(id)
         logging.info(f"Successfully generated order {id}")
-        with open(f"{PATH}orders/order_{id}_{datetime.now().strftime('%d-%m_%H:%M')}.json", "w") as file:
+        with open(f"../orders/order_{id}_{datetime.now().strftime('%d-%m_%H:%M')}.json", "w") as file:
             json.dump(order, file, indent=4,
                       ensure_ascii=False, separators=[",", ":"])
         sleep(random.randint(5, 60))

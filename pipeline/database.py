@@ -3,6 +3,8 @@ from sqlalchemy.types import Integer, String, DateTime, SmallInteger, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import config
+import psycopg2
+import json
 
 Base = declarative_base()
 
@@ -75,3 +77,18 @@ class Ordered_items(Base):
 engine = create_engine(
     f"postgresql+psycopg2://{config.DB_USER}:{config.DB_PASSWORD}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}")
 Base.metadata.create_all(engine)
+
+connection = psycopg2.connect(dbname="fooddelivery", user="admin",
+                              password="admin", host="localhost", port=5432)
+
+cursor = connection.cursor()
+
+with open("../items.json") as file:
+    data = json.load(file)
+
+for item in data:
+    cursor.execute(f"INSERT INTO items (id, name, price) VALUES (%s,%s,%s);", (int(
+        item["item_id"]), f'{item["item_name"]}', item["price"]))
+    connection.commit()
+cursor.close()
+connection.close()

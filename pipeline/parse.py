@@ -5,7 +5,6 @@ import psycopg2
 import sys
 import datetime
 from time import sleep
-from paths import PATH
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout,
                     format="%(levelname)s (%(asctime)s): %(message)s")
@@ -17,7 +16,7 @@ cursor = connection.cursor()
 
 
 def parse(path_to_file: str):
-    with open(f"{PATH}orders/{path_to_file}") as file:
+    with open(f"../orders/{path_to_file}") as file:
         data = json.load(file)
         cursor.execute("INSERT INTO orders (id, datetime, customer_name, city, street, total_price, delivery_instructions)\
             VALUES (%s, %s, %s, %s, %s, %s, %s);", (data["order_id"],
@@ -36,10 +35,10 @@ def parse(path_to_file: str):
 def main():
     listdir = list()
     while True:
-        for file in (set(os.listdir(f"{PATH}orders/"))-set(listdir)):
+        for file in (set(os.listdir(f"../orders/"))-set(listdir)):
             parse(file)
             logging.info(f"parsed file {file}")
-        listdir = os.listdir(f"{PATH}orders/")
+        listdir = os.listdir(f"../orders/")
         sleep(5)
 
 if __name__ == "__main__":

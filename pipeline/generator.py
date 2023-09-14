@@ -1,3 +1,4 @@
+import os
 import random
 import logging
 import sys
@@ -36,7 +37,7 @@ def generate_order(current_id: id) -> dict:
     customer_address = random.choice(samples.addresses)
     customer_address = f'{customer_address["city"]}, {customer_address["street"]}, {customer_address["house"]}'
 
-    with open(f"../items.json") as file:
+    with open(f"./items.json") as file:
         customer_items = generate_items(random.randint(1, 10), json.load(file))
     return {"order_id": current_id,
             "date": datetime.now().strftime("%d.%m.%Y"),
@@ -50,12 +51,15 @@ def generate_order(current_id: id) -> dict:
 
 
 if __name__ == "__main__":
-    id = int()
+    if os.listdir('./orders'):
+        id = int(sorted(os.listdir("./orders"), key=lambda x: int(x.split('_')[1]))[-1].split('_')[1])
+    else:
+        id = 0
     while True:
         id += 1
         order = generate_order(id)
         logging.info(f"Successfully generated order {id}")
-        with open(f"../orders/order_{id}_{datetime.now().strftime('%d-%m_%H:%M')}.json", "w") as file:
+        with open(f"./orders/order_{id}_{datetime.now().strftime('%d-%m_%H:%M')}.json", "w") as file:
             json.dump(order, file, indent=4,
                       ensure_ascii=False, separators=[",", ":"])
         sleep(random.randint(5, 60))

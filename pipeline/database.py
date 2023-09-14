@@ -80,10 +80,9 @@ Base.metadata.create_all(engine)
 
 connection = psycopg2.connect(dbname="fooddelivery", user="admin",
                               password="admin", host="localhost", port=5432)
-
 cursor = connection.cursor()
 
-with open("../items.json") as file:
+with open("./items.json") as file:
     data = json.load(file)
 
 for item in data:

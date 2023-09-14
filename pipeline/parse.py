@@ -16,7 +16,7 @@ cursor = connection.cursor()
 
 
 def parse(path_to_file: str):
-    with open(f"../orders/{path_to_file}") as file:
+    with open(f"./orders/{path_to_file}") as file:
         data = json.load(file)
         cursor.execute("INSERT INTO orders (id, datetime, customer_name, city, street, total_price, delivery_instructions)\
             VALUES (%s, %s, %s, %s, %s, %s, %s);", (data["order_id"],
@@ -33,12 +33,18 @@ def parse(path_to_file: str):
         connection.commit()
 
 def main():
-    listdir = list()
+    if os.listdir('./orders'):
+        cursor.execute('SELECT id from orders;')
+        last_order_id = cursor.fetchall()
+        listdir = [x for x in sorted(os.listdir('./orders'), key=lambda x: int(x.split('_')[1])) 
+                   if int(x.split('_')[1]) <= last_order_id[-1][0]]
+    else:
+        listdir = []
     while True:
-        for file in (set(os.listdir(f"../orders/"))-set(listdir)):
+        for file in (set(os.listdir(f"./orders/"))-set(listdir)):
             parse(file)
             logging.info(f"parsed file {file}")
-        listdir = os.listdir(f"../orders/")
+        listdir = os.listdir(f"./orders/")
         sleep(5)
 
 if __name__ == "__main__":
